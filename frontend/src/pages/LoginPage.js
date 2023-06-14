@@ -1,9 +1,15 @@
 import { useState } from "react";
 import styles from './LoginPage.module.css';
+import { loginRequest } from "../services/apiRequest";
 
 function LoginPage() {
   const [userInput, setUserInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [loginFailed, setIsLoginFailed] = useState(false);
+
+  const handleLoginClick = () => {
+    loginRequest(userInput, passwordInput, setIsLoginFailed);
+  }
 
   const buttonStyles = {
     backgroundColor: '#23297A',
@@ -13,7 +19,7 @@ function LoginPage() {
     marginTop: '8px',
     width: '100%',
     fontSize: '14px',
-  };
+  }
   const inputStyle = {
     marginBottom: '8px',
   }
@@ -63,11 +69,23 @@ function LoginPage() {
             placeholder="Digite sua senha"
           />
         </div>
+        { loginFailed
+          && (
+            <p
+              style={ {
+                fontSize: '14px',
+                color: '#dc3545',
+                marginBottom: '8px' } }
+            >
+              Usuário ou senha incorretos
+            </p>
+          )}
         <button
           className="btn btn-primary"
           id="login-button"
           type="button"
           style={ buttonStyles }
+          onClick={ handleLoginClick }
         >
           Entrar
         </button>

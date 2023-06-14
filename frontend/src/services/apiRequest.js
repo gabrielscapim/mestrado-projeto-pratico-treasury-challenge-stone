@@ -3,7 +3,7 @@ import axios from 'axios';
 const URL = 'https://mars-authentication-api.herokuapp.com/v1';
 const HTTP_STATUS_OK = 200;
 
-const loginRequest = async (login, password) => {
+const loginRequest = async (login, password, setIsLoginFailed) => {
   try {
     const response = await axios.post(`${URL}/login`, {
       login,
@@ -15,8 +15,10 @@ const loginRequest = async (login, password) => {
     if (status === HTTP_STATUS_OK) {
       localStorage.setItem('token', data);
       localStorage.setItem('tokenGenerationTime', Date.now());
+      setIsLoginFailed(false);
     }
   } catch (error) {
+    setIsLoginFailed(true);
     console.error(error);
   }
 };
