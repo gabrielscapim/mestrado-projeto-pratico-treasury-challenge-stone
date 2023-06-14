@@ -1,11 +1,16 @@
 import { useState } from "react";
 import styles from './GenerateCodesPage.module.css';
+import { apiRequest } from "../services/apiRequest";
 
 function GenerateCodesPage() {
   const [codesQuantityInput, setCodesQuantityInput] = useState(1);
 
   const handleGenerateCodeClick = () => {
-    console.log('clicou');
+    const data = {
+      quantidade: Number(codesQuantityInput),
+    }
+
+    apiRequest('POST', '/gerar-codigo-promocional', data);
   }
 
   const buttonStyles = {

@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const URL = 'https://mars-authentication-api.herokuapp.com/v1';
+const AUTHENTICATION_URL = 'https://mars-authentication-api.herokuapp.com/v1';
+const GENERATE_CODE_URL = 'https://mars-promotion-api.herokuapp.com/v1';
 const HTTP_STATUS_OK = 200;
 
 const loginRequest = async (login, password, setIsLoginFailed, setIsLoggedIn) => {
   try {
-    const response = await axios.post(`${URL}/login`, {
+    const response = await axios.post(`${AUTHENTICATION_URL}/login`, {
       login,
       password,
     });
@@ -39,21 +40,21 @@ const apiRequest = async (method, endpoint, data = null) => {
 
     switch (method.toLowerCase()) {
     case 'get':
-      response = await axios.get(`${URL}${endpoint}`, config);
+      response = await axios.get(`${GENERATE_CODE_URL}${endpoint}`, config);
       break;
     case 'post':
-      response = await axios.post(`${URL}${endpoint}`, data, config);
+      response = await axios.post(`${GENERATE_CODE_URL}${endpoint}`, data, config);
       break;
     case 'put':
-      response = await axios.put(`${URL}${endpoint}`, data, config);
+      response = await axios.put(`${GENERATE_CODE_URL}${endpoint}`, data, config);
       break;
     case 'delete':
-      response = await axios.delete(`${URL}${endpoint}`, config);
+      response = await axios.delete(`${GENERATE_CODE_URL}${endpoint}`, config);
       break;
     default:
       throw new Error(`Invalid HTTP method: ${method}`);
     }
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
