@@ -2,17 +2,25 @@ import { useState } from "react";
 import styles from './GenerateCodesPage.module.css';
 import { apiRequest } from "../services/apiRequest";
 import Loading from "../components/Loading";
+import { saveAs } from 'file-saver';
 
 function GenerateCodesPage() {
   const [codesQuantityInput, setCodesQuantityInput] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [codes, setCodes] = useState([]);
 
   const handleGenerateCodeClick = () => {
     const data = {
       quantidade: Number(codesQuantityInput),
     }
 
-    apiRequest('POST', '/gerar-codigo-promocional', data, setIsLoading);
+    apiRequest('POST', '/gerar-codigo-promocional', data, setIsLoading).then((result) => (
+      setCodes(result)
+    ));
+
+    const textToSave = codes.join('\n');
+    const blob = new Blob([textToSave], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, 'codes.txt');
   }
 
   const buttonStyles = {
