@@ -30,8 +30,9 @@ const loginRequest = async (login, password, setIsLoginFailed, setIsLoggedIn, se
   }
 };
 
-const apiRequest = async (method, endpoint, data = null) => {
+const apiRequest = async (method, endpoint, data = null, setIsLoading) => {
   try {
+    setIsLoading(true);
     const token = localStorage.getItem('token');
 
     const config = {
@@ -58,11 +59,14 @@ const apiRequest = async (method, endpoint, data = null) => {
     default:
       throw new Error(`Invalid HTTP method: ${method}`);
     }
+    setIsLoading(false);
     console.log(response.data);
-    return response.data;
+    // return response.data;
   } catch (error) {
+    setIsLoading(true);
     console.error(error);
-    throw error;
+    setIsLoading(false);
+    // throw error;
   }
 };
 

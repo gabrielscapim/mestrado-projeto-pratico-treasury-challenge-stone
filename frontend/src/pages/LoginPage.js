@@ -97,6 +97,7 @@ function LoginPage() {
           type="button"
           style={ buttonStyles }
           onClick={ handleLoginClick }
+          disabled={ isLoading }
         >
           Entrar
         </button>

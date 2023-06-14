@@ -1,16 +1,18 @@
 import { useState } from "react";
 import styles from './GenerateCodesPage.module.css';
 import { apiRequest } from "../services/apiRequest";
+import Loading from "../components/Loading";
 
 function GenerateCodesPage() {
   const [codesQuantityInput, setCodesQuantityInput] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGenerateCodeClick = () => {
     const data = {
       quantidade: Number(codesQuantityInput),
     }
 
-    apiRequest('POST', '/gerar-codigo-promocional', data);
+    apiRequest('POST', '/gerar-codigo-promocional', data, setIsLoading);
   }
 
   const buttonStyles = {
@@ -47,6 +49,7 @@ function GenerateCodesPage() {
             id="codes-quantity-input"
             type="number"
             min={ 1 }
+            max={ 1000000 }
             style={ inputStyle }
             name="codesQuantityInput"
             value={ codesQuantityInput }
@@ -54,12 +57,14 @@ function GenerateCodesPage() {
             placeholder="Digite a quantidade de códigos que deseja gerar"
           />
         </div>
+        { isLoading && <Loading /> }
         <button
           className="btn btn-primary"
           id="codes-generate-button"
           type="button"
           style={ buttonStyles }
           onClick={ handleGenerateCodeClick }
+          disabled={ isLoading }
         >
           Gerar
         </button>
