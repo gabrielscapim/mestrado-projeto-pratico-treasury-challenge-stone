@@ -6,8 +6,8 @@ function LoginPage() {
   const [passwordInput, setPasswordInput] = useState('');
 
   const buttonStyles = {
-    backgroundColor: '#006400',
-    border: '1px solid #006400',
+    backgroundColor: '#23297A',
+    border: '1px solid #23297A',
     height: '38px',
     marginBottom: '12px',
     marginTop: '8px',
