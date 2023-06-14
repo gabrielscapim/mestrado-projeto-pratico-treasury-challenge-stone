@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './LoginPage.module.css';
 import { loginRequest } from "../services/apiRequest";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [userInput, setUserInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginFailed, setIsLoginFailed] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    loginRequest(userInput, passwordInput, setIsLoginFailed);
+    loginRequest(userInput, passwordInput, setIsLoginFailed, setIsLoggedIn);
   }
+
+  useEffect(() => {
+    isLoggedIn && navigate('/generate-codes');
+  }, [isLoggedIn])
 
   const buttonStyles = {
     backgroundColor: '#23297A',
