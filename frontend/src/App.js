@@ -1,10 +1,14 @@
-import { loginRequest } from "./services/apiRequest";
+import LoginPage from '../src/pages/LoginPage';
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      <h3>Hello world</h3>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="*" element={ <Navigate to="login" replace /> } />
+        <Route exact path="/login" Component={ LoginPage } />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
