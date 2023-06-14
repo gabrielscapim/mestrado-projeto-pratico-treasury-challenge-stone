@@ -2,6 +2,7 @@ import LoginPage from '../src/pages/LoginPage';
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import PrivateRoutes from './routes/PrivateRoutes';
 import GenerateCodesPage from './pages/GenerateCodesPage';
+import LoginRedirect from './routes/LoginRedirect';
 
 function App() {
   const dateNow = Date.now();
@@ -16,9 +17,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={ <Navigate to="login" replace /> } />
-        <Route exact path="/login" Component={ LoginPage } />
-
+        <Route element={ <LoginRedirect /> }>
+          <Route path="*" element={ <Navigate to="login" replace /> } />
+          <Route exact path="/login" Component={ LoginPage } />
+        </Route>
         <Route element={ <PrivateRoutes /> }>
           <Route exact path="/generate-codes" Component={ GenerateCodesPage } />
         </Route>
