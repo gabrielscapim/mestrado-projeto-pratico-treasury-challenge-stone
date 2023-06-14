@@ -7,21 +7,20 @@ import { saveAs } from 'file-saver';
 function GenerateCodesPage() {
   const [codesQuantityInput, setCodesQuantityInput] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [codes, setCodes] = useState([]);
 
   const handleGenerateCodeClick = () => {
     const data = {
       quantidade: Number(codesQuantityInput),
     }
 
-    apiRequest('POST', '/gerar-codigo-promocional', data, setIsLoading).then((result) => (
-      setCodes(result)
-    ));
-
-    const textToSave = codes.join('\n');
-    const blob = new Blob([textToSave], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, 'codes.txt');
+    apiRequest('POST', '/gerar-codigo-promocional', data, setIsLoading).then((codes) => {
+      const textToSave = codes.join('\n');
+      const blob = new Blob([textToSave], { type: 'text/plain;charset=utf-8' });
+      saveAs(blob, 'codes.txt');
+    });
   }
+
+  const isInputCorrect = Number(codesQuantityInput) > 0 && Number(codesQuantityInput) < 1000000;
 
   const buttonStyles = {
     backgroundColor: '#23297A',
@@ -72,7 +71,7 @@ function GenerateCodesPage() {
           type="button"
           style={ buttonStyles }
           onClick={ handleGenerateCodeClick }
-          disabled={ isLoading }
+          disabled={ !isInputCorrect || isLoading }
         >
           Gerar
         </button>

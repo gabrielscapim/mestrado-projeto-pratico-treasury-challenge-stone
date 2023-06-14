@@ -60,6 +60,7 @@ const apiRequest = async (method, endpoint, data = null, setIsLoading) => {
       throw new Error(`Invalid HTTP method: ${method}`);
     }
     setIsLoading(false);
+    console.log(response);
     return response.data;
   } catch (error) {
     setIsLoading(true);
