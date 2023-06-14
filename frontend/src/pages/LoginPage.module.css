@@ -1,0 +1,24 @@
+.page-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #faf9f6;
+    font-size: '16px';
+}
+
+.form-container {
+    background-color: white;
+    width: 400px;
+    border: 1px solid #bdbbb7;
+    border-radius: 12px;
+    padding: 2%;
+}
+
+@media all and (max-width: 768px) {
+    .form-container {
+        width: 350px;
+        padding: 5%;
+    }
+}
