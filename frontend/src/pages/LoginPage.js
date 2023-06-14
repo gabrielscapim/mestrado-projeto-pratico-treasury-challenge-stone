@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import styles from './LoginPage.module.css';
 import { loginRequest } from "../services/apiRequest";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function LoginPage() {
   const [userInput, setUserInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [loginFailed, setIsLoginFailed] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    loginRequest(userInput, passwordInput, setIsLoginFailed, setIsLoggedIn);
+    loginRequest(userInput, passwordInput, setIsLoginFailed, setIsLoggedIn, setIsLoading);
   }
 
   useEffect(() => {
@@ -77,7 +79,7 @@ function LoginPage() {
             placeholder="Digite sua senha"
           />
         </div>
-        { loginFailed
+        { !isLoading && loginFailed
           && (
             <p
               style={ {
@@ -88,6 +90,7 @@ function LoginPage() {
               Usuário ou senha incorretos
             </p>
           )}
+        { isLoading && <Loading /> }
         <button
           className="btn btn-primary"
           id="login-button"

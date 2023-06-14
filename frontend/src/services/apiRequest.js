@@ -4,8 +4,9 @@ const AUTHENTICATION_URL = 'https://mars-authentication-api.herokuapp.com/v1';
 const GENERATE_CODE_URL = 'https://mars-promotion-api.herokuapp.com/v1';
 const HTTP_STATUS_OK = 200;
 
-const loginRequest = async (login, password, setIsLoginFailed, setIsLoggedIn) => {
+const loginRequest = async (login, password, setIsLoginFailed, setIsLoggedIn, setIsLoading) => {
   try {
+    setIsLoading(true);
     const response = await axios.post(`${AUTHENTICATION_URL}/login`, {
       login,
       password,
@@ -19,10 +20,13 @@ const loginRequest = async (login, password, setIsLoginFailed, setIsLoggedIn) =>
       setIsLoginFailed(false);
       setIsLoggedIn(true);
     }
+    setIsLoading(false);
   } catch (error) {
+    setIsLoading(true);
     setIsLoginFailed(true);
     setIsLoggedIn(false);
     console.error(error);
+    setIsLoading(false);
   }
 };
 
