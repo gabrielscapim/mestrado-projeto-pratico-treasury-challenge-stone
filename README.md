@@ -16,6 +16,6 @@ A aplicação front-end é responsável por promover uma tela de autenticação 
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=git,nodejs,js,react,bootstrap" />
+    <img src="https://skillicons.dev/icons?i=git,nodejs,js,react,bootstrap,html,css" />
   </a>
 </p>
